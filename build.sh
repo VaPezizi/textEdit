@@ -1,1 +1,1 @@
-gcc textEdit.c -o textEdit.o -lraylib
+gcc textEdit.c -o textEdit.o -lraylib 
