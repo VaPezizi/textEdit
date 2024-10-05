@@ -20,8 +20,14 @@ int main(){
 	InitWindow(WIDTH, HEIGHT, "Text Edit");
 	SetTargetFPS(60);
 
-	int letterCount = 0;
-	
+	Font font = LoadFont("./assets/DejaVuSansCondensed.ttf");
+
+
+	int letterCount = 0;	
+	int frameCount = 0;
+
+	SetTargetFPS(60);
+
 	printf("%d\n", '\n');
 
 	while(!WindowShouldClose()){
@@ -62,16 +68,35 @@ int main(){
 		
 		else SetMouseCursor(MOUSE_CURSOR_DEFAULT);
 	
+		frameCount++;
+		/*if(letterCount < BUFFERSIZE){
+			if(((frameCount/20)%2) == 0){ continue;}
+		}*/
+	
+		if(letterCount + 1 < BUFFERSIZE){
+			if((frameCount/20)%2){
+				BUFFER[letterCount] = '_';	
+				BUFFER[letterCount + 1] = '\0';
+				//DrawTextEx(font,"_", (Vector2){10, 10 * (CURRENTLINE + 1)}, font.baseSize, 2, BLACK);	
+			}else{
+				BUFFER[letterCount] = '\0';
+				//BUFFER[letterCount + 1] = '\0';
+			}
+		}
 
 		BeginDrawing();
 		ClearBackground(WHITE);	
 		
-		DrawText(BUFFER, 10, 10, 40, MAROON);	
+
+		//printf("%d\n", (frameCount/20)%2);	
 		
+
+		DrawTextEx(font,BUFFER, (Vector2){10, 10}, font.baseSize, 2, BLACK);	
 		EndDrawing();
 		//printf("Arvo :%c \n", BUFFER[letterCount - 1]);
 	}	
-
+	UnloadFont(font);
 	free(BUFFER);
+	CloseWindow();
 	return 0;
 }
