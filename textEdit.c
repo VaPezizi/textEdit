@@ -18,11 +18,19 @@ int addLetter(char * BUFFER, char ToAdd, int * letterCount, int * CurrentIndex){
 		*letterCount = *letterCount + 1;
 		*CurrentIndex = *CurrentIndex + 1;
 		return 0;	
-	}else{
-		puts("Moikka");
-		//BUFFER[*CurrentIndex]
-	}
 	
+		if(IsKeyPressed(KEY_ENTER) && (*letterCount < BUFFERSIZE)){
+			
+			BUFFER[*letterCount] = '\n';
+			BUFFER[*letterCount + 1] = '\0';
+			*letterCount = *letterCount + 1;
+			*CurrentIndex = *CurrentIndex + 1;	
+		//BUFFER[*CurrentIndex]
+		}	
+	}
+	else{
+		puts("Moro");
+	}
 	return 0;
 
 }
@@ -51,6 +59,7 @@ int main(){
 
 	if(BUFFER == NULL){
 		fprintf(stderr, "Memory allocation error\n");
+		return -1;
 	}
 
 	BUFFER[BUFFERSIZE + 1] = '\0';
